@@ -7,10 +7,6 @@ Pasos para instalar y configurar tu proyecto.
 ## Uso
 Instrucciones sobre cómo usar y ejecutar tu proyecto.
 
-## Capturas de Pantalla
-![Captura de Pantalla 1](ruta/a/tu/captura1.png)
-![Captura de Pantalla 2](ruta/a/tu/captura2.png)
-
 ## Rutas y Funcionamiento
 
 ### Inversiones
