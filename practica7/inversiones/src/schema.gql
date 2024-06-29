@@ -1,0 +1,85 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ConceptoInversion {
+  descripcion: String!
+  id: ID!
+  nombre: String!
+}
+
+input CreateConceptoInversionInput {
+  descripcion: String!
+  estado: String
+  nombre: String!
+}
+
+input CreateInversionInput {
+  conceptoInversionId: ID!
+  estado: String! = "ACTIVO"
+  inversionistaId: ID!
+  monto: Float!
+  nombre: String!
+}
+
+input CreateInversionistaInput {
+  apellido: String!
+  email: String!
+  estado: String! = "ACTIVO"
+  nombre: String!
+}
+
+type Inversion {
+  conceptoInversion: ConceptoInversion!
+  id: ID!
+  inversionista: Inversionista!
+  nombre: String!
+}
+
+type Inversionista {
+  apellido: String!
+  email: String!
+  id: ID!
+  nombre: String!
+}
+
+type Mutation {
+  createConceptoInversion(input: CreateConceptoInversionInput!): ConceptoInversion!
+  createInversion(input: CreateInversionInput!): Inversion!
+  createInversionista(input: CreateInversionistaInput!): Inversionista!
+  deleteConceptoInversion(id: ID!): ConceptoInversion!
+  deleteInversion(id: Float!): Inversion!
+  deleteInversionista(id: Float!): Inversionista!
+  updateConceptoInversion(id: ID!, input: UpdateConceptoInversionInput!): ConceptoInversion!
+  updateInversion(id: Float!, input: UpdateInversionInput!): Inversion!
+  updateInversionista(id: Float!, input: UpdateInversionistaInput!): Inversionista!
+}
+
+type Query {
+  conceptoInversion(id: ID!): ConceptoInversion!
+  conceptoInversiones: [ConceptoInversion!]!
+  inversion(id: Float!): Inversion!
+  inversiones: [Inversion!]!
+  inversionista(id: Float!): Inversionista!
+  inversionistas: [Inversionista!]!
+}
+
+input UpdateConceptoInversionInput {
+  descripcion: String
+  estado: String
+  id: ID!
+  nombre: String
+}
+
+input UpdateInversionInput {
+  id: ID!
+  monto: Float
+  nombre: String
+}
+
+input UpdateInversionistaInput {
+  apellido: String
+  email: String
+  id: ID!
+  nombre: String
+}
