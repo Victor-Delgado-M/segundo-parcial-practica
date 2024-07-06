@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebSocket Test</h1>
+        <div class="form-container">
+            <form id="transactionForm">
+                <input type="text" id="transactionInput" placeholder="Transaction Data">
+                <button type="submit">Add Transaction</button>
+            </form>
+        </div>
+        <button id="fetchTransactions">Fetch Active Transactions</button>
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        const socket = new WebSocket('ws://localhost:3000');
+
+        // Manejo del envío de transacciones
+        const transactionForm = document.getElementById('transactionForm');
+        const transactionInput = document.getElementById('transactionInput');
+
+        transactionForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const transactionData = transactionInput.value.trim();
+            if (transactionData) {
+                const message = { type: 'agregar-transaccion', data: transactionData };
+                socket.send(JSON.stringify(message));
+                transactionInput.value = '';
+            }
+        });
+
+        // Manejo de la consulta de transacciones activas
+        const fetchTransactionsBtn = document.getElementById('fetchTransactions');
+        const messagesContainer = document.getElementById('messages');
+
+        fetchTransactionsBtn.addEventListener('click', function() {
+            const message = { type: 'consultar-activos' };
+            socket.send(JSON.stringify(message));
+        });
+
+        // Mostrar mensajes recibidos del WebSocket
+        socket.onmessage = function(event) {
+            const message = JSON.parse(event.data);
+            if (message.type === 'agregar-transaccion') {
+                const newMessage = document.createElement('div');
+                newMessage.textContent = `Nueva transacción agregada: ${message.data}`;
+                messagesContainer.appendChild(newMessage);
+            } else if (message.type === 'transacciones-activas') {
+                const activeTransactions = message.data.join(', ');
+                const activeTransactionsMessage = document.createElement('div');
+                activeTransactionsMessage.textContent = `Transacciones activas: ${activeTransactions}`;
+                messagesContainer.appendChild(activeTransactionsMessage);
+            }
+        };
+    </script>
+</body>
+</html>
