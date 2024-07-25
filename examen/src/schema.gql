@@ -1,0 +1,48 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Device {
+  id: Int!
+  codigo: String!
+  detalle: String!
+  clasificacion: String!
+  caracteristicas: String!
+  costoAproximado: Float!
+  fechaUltimaActualizacionFirmware: String!
+  empresa: String!
+  isActive: Boolean!
+}
+
+type Query {
+  getDevices: [Device!]!
+  getDevice(id: Int!): Device!
+}
+
+type Mutation {
+  createDevice(createDeviceInput: CreateDeviceInput!): Device!
+  updateDevice(id: Int!, updateDeviceInput: UpdateDeviceInput!): Device!
+  removeDevice(id: Int!): Boolean!
+  logicalRemoveDevice(id: Int!): Device
+}
+
+input CreateDeviceInput {
+  codigo: String!
+  detalle: String!
+  clasificacion: String!
+  caracteristicas: String!
+  costoAproximado: Float!
+  fechaUltimaActualizacionFirmware: String!
+  empresa: String!
+}
+
+input UpdateDeviceInput {
+  codigo: String
+  detalle: String
+  clasificacion: String
+  caracteristicas: String
+  costoAproximado: Float
+  fechaUltimaActualizacionFirmware: String
+  empresa: String
+  isActive: Boolean
+}
